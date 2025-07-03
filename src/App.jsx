@@ -8,30 +8,36 @@ export default function App() {
   const [signer, setSigner] = useState(null);
   const [address, setAddress] = useState("");
 
-  // 🎯 ESTE EFECTO es el que detecta cambios en MetaMask
   useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", async (accounts) => {
-        console.log("⚡ Cuenta de MetaMask cambiada:", accounts);
-        if (accounts.length > 0) {
-          setAddress(accounts[0]);
-          if (provider) {
-            const newSigner = await provider.getSigner();
-            setSigner(newSigner);
-          }
-        } else {
-          // Usuario desconectó todas las cuentas
-          setAddress("");
-          setSigner(null);
-          setProvider(null);
-        }
-      });
-    }
+    if (!window.ethereum) return;
 
+    // ✅ Definir la función de listener de forma estable
+    const handleAccountsChanged = async (accounts) => {
+      console.log("⚡ Cuenta de MetaMask cambiada:", accounts);
+      if (accounts.length > 0) {
+        setAddress(accounts[0]);
+        if (provider) {
+          const newSigner = await provider.getSigner();
+          setSigner(newSigner);
+        }
+      } else {
+        // Se desconectaron todas las cuentas
+        setAddress("");
+        setSigner(null);
+        setProvider(null);
+      }
+    };
+
+    // ✅ Agregar el listener
+    window.ethereum.on("accountsChanged", handleAccountsChanged);
+
+    // ✅ Limpiar el listener al desmontar o cambiar provider
     return () => {
-      // Limpieza del listener
-      if (window.ethereum && window.ethereum.removeListener) {
-        window.ethereum.removeListener("accountsChanged", () => {});
+      if (window.ethereum && handleAccountsChanged) {
+        window.ethereum.removeListener(
+          "accountsChanged",
+          handleAccountsChanged
+        );
       }
     };
   }, [provider]);

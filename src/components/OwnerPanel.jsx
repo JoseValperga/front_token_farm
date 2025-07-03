@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 
-export default function OwnerPanel({ contract }) {
+export default function OwnerPanel({ contract, lpTokenContract }) {
   const [reward, setReward] = useState("");
   const [fee, setFee] = useState("");
 
@@ -46,7 +46,10 @@ export default function OwnerPanel({ contract }) {
           onChange={(e) => setReward(e.target.value)}
           className="text-white p-2 rounded mr-2"
         />
-        <button onClick={setRewardPerBlock} className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700">
+        <button
+          onClick={setRewardPerBlock}
+          className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700"
+        >
           Set Reward
         </button>
       </div>
@@ -58,13 +61,41 @@ export default function OwnerPanel({ contract }) {
           onChange={(e) => setFee(e.target.value)}
           className="text-withe p-2 rounded mr-2"
         />
-        <button onClick={setFeePercentage} className="bg-pink-600 px-4 py-2 rounded hover:bg-pink-700">
+        <button
+          onClick={setFeePercentage}
+          className="bg-pink-600 px-4 py-2 rounded hover:bg-pink-700"
+        >
           Set Fee
         </button>
       </div>
-      <button onClick={distributeAll} className="bg-green-600 px-4 py-2 rounded hover:bg-green-700 mt-2">
+      <button
+        onClick={distributeAll}
+        className="bg-green-600 px-4 py-2 rounded hover:bg-green-700 mt-2"
+      >
         Distribuir Recompensas a Todos
       </button>
+      {lpTokenContract && (
+        <button
+          className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 mt-4"
+          onClick={async () => {
+            try {
+              const recipient = prompt(
+                "Ingrese la dirección del destinatario:"
+              );
+              if (!recipient) return;
+
+              const amount = ethers.parseEther("100");
+              await lpTokenContract.transfer(recipient, amount);
+              alert(`✅ Transferidos 100 LP a ${recipient}`);
+            } catch (err) {
+              console.error(err);
+              alert("❌ Error al transferir LP");
+            }
+          }}
+        >
+          Enviar 100 LP a una wallet (TEST)
+        </button>
+      )}
     </div>
   );
 }

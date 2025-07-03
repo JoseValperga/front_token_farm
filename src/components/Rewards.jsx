@@ -12,7 +12,10 @@ export default function Rewards({ contract, signer, address }) {
   return (
     <div className="mb-6">
       <h2 className="text-xl font-bold mb-2">🎁 Recompensas</h2>
-      <button onClick={claim} className="bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600">
+      <button
+        onClick={claim}
+        className="bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600"
+      >
         Reclamar Recompensas
       </button>
     </div>
