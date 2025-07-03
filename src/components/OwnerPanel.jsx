@@ -74,6 +74,7 @@ export default function OwnerPanel({ contract, lpTokenContract }) {
       >
         Distribuir Recompensas a Todos
       </button>
+      <p></p>
       {lpTokenContract && (
         <button
           className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 mt-4"
