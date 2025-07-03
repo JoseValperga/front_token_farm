@@ -44,7 +44,7 @@ export default function OwnerPanel({ contract }) {
           placeholder="Reward por bloque (ETH)"
           value={reward}
           onChange={(e) => setReward(e.target.value)}
-          className="text-black p-2 rounded mr-2"
+          className="text-white p-2 rounded mr-2"
         />
         <button onClick={setRewardPerBlock} className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700">
           Set Reward
@@ -56,7 +56,7 @@ export default function OwnerPanel({ contract }) {
           placeholder="Fee (bps)"
           value={fee}
           onChange={(e) => setFee(e.target.value)}
-          className="text-black p-2 rounded mr-2"
+          className="text-withe p-2 rounded mr-2"
         />
         <button onClick={setFeePercentage} className="bg-pink-600 px-4 py-2 rounded hover:bg-pink-700">
           Set Fee

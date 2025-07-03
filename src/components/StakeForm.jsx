@@ -34,7 +34,7 @@ export default function StakeForm({ contract, signer, address }) {
         placeholder="Cantidad LP a stakear"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
-        className="text-black p-2 rounded mr-2"
+        className="text-white p-2 rounded mr-2"
       />
       <button onClick={deposit} className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
         Depositar

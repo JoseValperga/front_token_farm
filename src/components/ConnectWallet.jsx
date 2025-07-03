@@ -6,8 +6,19 @@ export default function ConnectWallet({ setProvider, setSigner, setAddress }) {
       alert("Instala MetaMask");
       return;
     }
+
     const provider = new ethers.BrowserProvider(window.ethereum);
-    const accounts = await provider.send("eth_requestAccounts", []);
+    let accounts = await provider.send("eth_accounts", []);
+
+    if (accounts.length === 0) {
+      accounts = await provider.send("eth_requestAccounts", []);
+    }
+
+    if (accounts.length === 0) {
+      alert("No se obtuvo ninguna cuenta");
+      return;
+    }
+
     const signer = await provider.getSigner();
     setProvider(provider);
     setSigner(signer);

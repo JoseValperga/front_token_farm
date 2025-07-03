@@ -12,7 +12,7 @@ export default function Dashboard({ provider, signer, address }) {
   const [contract, setContract] = useState(null);
 
   useEffect(() => {
-    const tf = new ethers.Contract(tokenFarmAddress, tokenFarmAbi, signer);
+    const tf = new ethers.Contract(tokenFarmAddress, tokenFarmAbi.abi, signer);
     setContract(tf);
 
     const checkOwner = async () => {
@@ -20,7 +20,8 @@ export default function Dashboard({ provider, signer, address }) {
       setIsOwner(owner.toLowerCase() === address.toLowerCase());
     };
     checkOwner();
-  }, [signer]);
+  }, [signer, address]);
+  
 
   return (
     <div>
