@@ -4,7 +4,6 @@ import { ethers } from "ethers";
 export default function Rewards({ contract, signer, address }) {
   const [pendingRewards, setPendingRewards] = useState(ethers.parseEther("0"));
 
-  // 🎯 Consultar rewards pendientes al cargar o cuando cambian
   useEffect(() => {
     if (!contract || !address) return;
 
@@ -20,12 +19,10 @@ export default function Rewards({ contract, signer, address }) {
 
     fetchRewards();
 
-    // Opcional: refrescar cada X segundos
     const interval = setInterval(fetchRewards, 15000);
     return () => clearInterval(interval);
   }, [contract, address]);
 
-  // 🎯 Reclamar
   const claim = async () => {
     try {
       await contract.connect(signer).claimRewards();

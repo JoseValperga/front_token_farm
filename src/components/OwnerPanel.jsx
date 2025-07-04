@@ -100,4 +100,3 @@ export default function OwnerPanel({ contract, lpTokenContract }) {
     </div>
   );
 }
-// This component allows the owner to set rewards, fees, and distribute rewards to all stakers.

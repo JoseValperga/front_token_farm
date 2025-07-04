@@ -15,7 +15,13 @@ export default function BalancesPanel({
   const [loading, setLoading] = useState(true);
 
   const fetchBalances = async () => {
-    if (!address || !tokenFarmContract || !lpTokenContract || !dappTokenContract) return;
+    if (
+      !address ||
+      !tokenFarmContract ||
+      !lpTokenContract ||
+      !dappTokenContract
+    )
+      return;
 
     setLoading(true);
 
@@ -35,7 +41,6 @@ export default function BalancesPanel({
       // DAPP en Wallet
       const dappBal = await dappTokenContract.balanceOf(address);
       setDappWallet(dappBal);
-
     } catch (err) {
       console.error("Error cargando balances:", err);
     }
@@ -50,7 +55,6 @@ export default function BalancesPanel({
     return () => clearInterval(interval);
   }, [address, tokenFarmContract, lpTokenContract, dappTokenContract]);
 
-  // Helper para formatear
   const fmt = (v) => ethers.formatEther(v);
 
   return (
@@ -70,17 +74,23 @@ export default function BalancesPanel({
 
           <div className="flex justify-between border-b border-gray-700 pb-2">
             <span className="text-gray-300">🌿 LP en Staking</span>
-            <span className="font-mono text-yellow-300">{fmt(lpStaking)} LP</span>
+            <span className="font-mono text-yellow-300">
+              {fmt(lpStaking)} LP
+            </span>
           </div>
 
           <div className="flex justify-between border-b border-gray-700 pb-2">
             <span className="text-gray-300">🎁 DAPP pendientes</span>
-            <span className="font-mono text-purple-300">{fmt(dappPending)} DAPP</span>
+            <span className="font-mono text-purple-300">
+              {fmt(dappPending)} DAPP
+            </span>
           </div>
 
           <div className="flex justify-between">
             <span className="text-gray-300">💎 DAPP en Wallet</span>
-            <span className="font-mono text-blue-300">{fmt(dappWallet)} DAPP</span>
+            <span className="font-mono text-blue-300">
+              {fmt(dappWallet)} DAPP
+            </span>
           </div>
         </div>
       )}

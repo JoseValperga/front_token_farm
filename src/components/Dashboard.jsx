@@ -29,7 +29,11 @@ export default function Dashboard({ provider, signer, address }) {
     const lp = new ethers.Contract(lpTokenAddress, lpTokenAbi.abi, signer);
     setLpTokenContract(lp);
 
-    const dapp = new ethers.Contract(dappTokenAddress, dappTokenAbi.abi, signer);
+    const dapp = new ethers.Contract(
+      dappTokenAddress,
+      dappTokenAbi.abi,
+      signer
+    );
     setDappTokenContract(dapp);
 
     // Chequear si la cuenta es el owner
@@ -74,7 +78,9 @@ export default function Dashboard({ provider, signer, address }) {
           className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 mt-4"
           onClick={async () => {
             try {
-              const recipient = prompt("Ingrese la dirección del destinatario:");
+              const recipient = prompt(
+                "Ingrese la dirección del destinatario:"
+              );
               if (!recipient) return;
 
               const amount = ethers.parseEther("100");

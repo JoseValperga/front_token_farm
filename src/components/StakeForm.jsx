@@ -11,7 +11,6 @@ export default function StakeForm({
   const [statusMessage, setStatusMessage] = useState("");
   const [stakingBalance, setStakingBalance] = useState(0n);
 
-  // 🔎 Consultar balance en staking
   const fetchStakingBalance = async () => {
     try {
       if (!tokenFarmContract || !address) return;
@@ -23,14 +22,12 @@ export default function StakeForm({
     }
   };
 
-  // 🎯 Cargar al inicio y refrescar cada 15s
   useEffect(() => {
     fetchStakingBalance();
     const interval = setInterval(fetchStakingBalance, 15000);
     return () => clearInterval(interval);
   }, [tokenFarmContract, address]);
 
-  // 🌿 Depositar LP Tokens en staking
   const deposit = async () => {
     try {
       if (!lpTokenContract || !tokenFarmContract) {
@@ -72,7 +69,6 @@ export default function StakeForm({
     }
   };
 
-  // 🌿 Retirar LP y reclamar recompensas en un solo paso
   const withdraw = async () => {
     try {
       if (!tokenFarmContract) {
@@ -143,9 +139,7 @@ export default function StakeForm({
         </button>
       </div>
 
-      {statusMessage && (
-        <p className="mt-2 text-yellow-400">{statusMessage}</p>
-      )}
+      {statusMessage && <p className="mt-2 text-yellow-400">{statusMessage}</p>}
     </div>
   );
 }
